@@ -19,7 +19,7 @@ class EventSource {
     };
 
     this.method = options.method || 'GET';
-    this.timeout = options.timeOut || 0;
+    this.timeout = options.timeout || 0;
     this.headers = options.headers || {};
     this.body = options.body || undefined;
     this.debug = options.debug || false;
@@ -38,7 +38,7 @@ class EventSource {
       this.url = url;
     }
 
-    this._pollAgain(this.timeoutBeforeConnection);
+    // this._pollAgain(this.timeoutBeforeConnection);
   }
 
   _pollAgain(time) {
@@ -98,7 +98,7 @@ class EventSource {
                 '[EventSource][onreadystatechange][DONE] Operation done. Reconnecting...'
               );
             }
-            this._pollAgain(this.interval);
+            // this._pollAgain(this.interval);
           }
         } else if (this.status !== this.CLOSED) {
           if (this._xhr.status !== 0) {
@@ -117,7 +117,7 @@ class EventSource {
               );
             }
 
-            this._pollAgain(this.interval);
+            // this._pollAgain(this.interval);
           }
         }
       };
@@ -245,7 +245,7 @@ class EventSource {
 
   close() {
     this.status = this.CLOSED;
-    clearTimeout(this._pollTimer);
+    this._pollTimer && clearTimeout(this._pollTimer);
     if (this._xhr) {
       this._xhr.abort();
     }
